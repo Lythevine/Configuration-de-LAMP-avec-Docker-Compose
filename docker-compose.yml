@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  web:
+    image: phpmyadmin:latest
+    restart: "always"
+    depends_on:
+      - mariadb
+    restart: "always"
+    ports:
+      - '8088:80'
+    links:
+      - mariadb
+    environment:
+      MYSQL_USER: lythevine4
+      MYSQL_PASSWORD: my-pwd4
+      PMA_HOST: tpdocker4_mariadb_1
+  mariadb:
+    image: mariadb:10.5
+    restart: "always"
+    volumes:
+      - /var/lib/mysql/data:/var/lib/mysql
+      - /var/lib/mysql/logs:/opt/bitnami/mariadb/logs/mysqld
+      - /var/docker/mariadb/conf:/etc/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-root-pwd4
+      MYSQL_DATABASE: mariadb
+      MYSQL_USER: lythevine4
+      MYSQL_PASSWORD: my-pwd4
+
